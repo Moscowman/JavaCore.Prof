@@ -24,10 +24,17 @@ public class Car implements Runnable {
         this.speed = speed;
         CARS_COUNT++;
         this.name = "Участник #" + CARS_COUNT;
+
     }
 
     @Override
     public void run() {
+        for (int i = 0; i < race.getStages().size(); i++) {
+            race.getStages().get(i).go(this);
+        }
+    }
+
+    public void prepare() {
         try {
             System.out.println(this.name + " готовится");
             Thread.sleep(500 + (int) (Math.random() * 800));
@@ -35,8 +42,6 @@ public class Car implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < race.getStages().size(); i++) {
-            race.getStages().get(i).go(this);
-        }
+
     }
 }
